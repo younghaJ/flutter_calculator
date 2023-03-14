@@ -44,71 +44,64 @@ class _MyAppState extends State<MyApp> {
       title: "Calculator",
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        
         appBar: AppBar(title: Text('계산기')),
         body:
-        Column(mainAxisAlignment: MainAxisAlignment.end,children:[
+        Column(mainAxisAlignment: MainAxisAlignment.end,
+            children:[
           TextField(
             controller: _controller,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
-              labelText: 'TextField',
+              labelText: '수식을 입력하시오',
             ),
           ),
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            TextButton(child: Text('7'), onPressed: () {
-              _controller.text += "7";
-            },),
-            TextButton(child: Text('8'), onPressed: () {
-              _controller.text += "8";
-            },),
-            TextButton(child: Text('9'), onPressed: () {
-              _controller.text += "9";
-            },),
-            TextButton(child: Text('*'), onPressed: () {
-              _controller.text += "*";
-            },),
+            _buildElevatedButton('7'),
+            _buildElevatedButton('8'),
+            _buildElevatedButton('9'),
+            _buildElevatedButton('*'),
           ]),
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            TextButton(child: Text('4'), onPressed: () {
-              _controller.text += "4";
-            },),
-            TextButton(child: Text('5'), onPressed: () {
-              _controller.text += "5";
-            },),
-            TextButton(child: Text('6'), onPressed: () {
-              _controller.text += "6";
-            },),
-            TextButton(child: Text('-'), onPressed: () {
-              _controller.text += "-";
-            },),
+            _buildElevatedButton('4'),
+            _buildElevatedButton('5'),
+            _buildElevatedButton('6'),
+            _buildElevatedButton('-'),
           ]),
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            TextButton(child: Text('1'), onPressed: () {
-              _controller.text += "1";
-            },),
-            TextButton(child: Text('2'), onPressed: () {
-              _controller.text += "2";
-            },),
-            TextButton(child: Text('3'), onPressed: () {
-              _controller.text += "3";
-            },),
-            TextButton(child: Text('+'), onPressed: () {
-              _controller.text += "+";
-            },),
+            _buildElevatedButton('1'),
+            _buildElevatedButton('2'),
+            _buildElevatedButton('3'),
+            _buildElevatedButton('+'),
           ]),
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-            TextButton(child: Text(' '), onPressed: () { },),
-            TextButton(child: Text('0'), onPressed: () {
-              _controller.text += "0";
-            },),
-            TextButton(child: Text('.'), onPressed: () {
-              _controller.text += ".";
-            },),
-            TextButton(child: Text('='), onPressed: () {
-              _calculate();
-            },),
+            _buildElevatedButton('clearAll'),
+            _buildElevatedButton('0'),
+            _buildElevatedButton('.'),
+            _buildElevatedButton('='),
           ]),
         ])),
+    );
+  }
+
+  Widget _buildElevatedButton(String data) {
+    return Padding(
+      padding: const EdgeInsets.all(2.0),
+      child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                fixedSize: const Size(120,100),
+                textStyle: TextStyle(
+                  fontSize: 50,
+                ),
+              ), child: Text(data), onPressed: () {
+                if(data == "clearAll"){
+                  _controller.text = "";
+                }else if(data == "=") {
+                  _calculate();
+                }else {
+                  _controller.text += data;
+                }
+            },),
     );
   }
 }
